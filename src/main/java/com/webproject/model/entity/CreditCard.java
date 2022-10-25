@@ -28,11 +28,8 @@ public class CreditCard {
     @Column(columnDefinition = "DATE")
     private LocalDate validity;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bank_account_id")
-    private String b;
+    private BankAccount bankAccount;
 
     @Override
     public boolean equals(Object o) {

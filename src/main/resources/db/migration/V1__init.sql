@@ -18,7 +18,7 @@ CREATE TABLE `login` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(45) NOT NULL UNIQUE,
     `password` VARCHAR(45) NOT NULL,
-    `user_id` BIGINT NOT NULL,
+    `user_id` BIGINT NOT NULL UNIQUE,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`user_id`) REFERENCES `user`(`id`)
 );
@@ -40,10 +40,8 @@ CREATE TABLE `credit_card` (
     `type` VARCHAR(3) NOT NULL,
     `status` VARCHAR(3) NOT NULL,
     `validity` DATE NOT NULL,
-    `user_id` BIGINT NOT NULL,
     `bank_account_id` BIGINT NOT NULL,
     PRIMARY KEY(`id`),
-    FOREIGN KEY(`user_id`) REFERENCES `user`(`id`),
     FOREIGN KEY(`bank_account_id`) REFERENCES `bank_account`(`id`)
 );
 
