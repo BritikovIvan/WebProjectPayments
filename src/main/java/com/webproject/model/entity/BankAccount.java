@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -25,6 +26,8 @@ public class BankAccount {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.EAGER)
+    private List<CreditCard> creditCards;
 
     @Override
     public boolean equals(Object o) {

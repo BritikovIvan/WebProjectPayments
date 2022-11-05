@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Кредитная карта</title>
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+    <body>
+        <div class="container-md" th:object="${creditCard}">
+            <p class="fs-4" th:text="'Название: ' + *{name}"/>
+            <p class="fs-4" th:text="'Номер: ' + *{number}"/>
+            <p class="fs-4" th:text="'Действительна до: ' + *{validity}"/>
+            <p class="fs-4" th:text="'Номер банковского счета: ' + *{bankAccount.iban}"/>
+            <p class="fs-4" th:text="'Баланс: ' + *{bankAccount.balance} + ' BYN'"/>
+<!--            <button th:if="*{status.name() == 'ACTIVE'}" type="button" class="btn btn-outline-dark">Заблокировать карту</button>-->
+<!--            <p th:if="*{status.name() == 'BLOCKED'}" class="fs-4">Ваша карта заблокирована. Для разблокирования обратитесь в службу поддержки.</p>-->
+        </div>
+    </body>
+</html>

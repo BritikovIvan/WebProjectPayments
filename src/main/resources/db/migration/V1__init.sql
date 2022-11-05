@@ -6,9 +6,9 @@ CREATE TABLE `user_role` (
 
 CREATE TABLE `user` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `fullName` VARCHAR(100),
+    `full_name` VARCHAR(100),
     `email` VARCHAR(45) UNIQUE,
-    `phoneNumber` VARCHAR(20) UNIQUE,
+    `phone_number` VARCHAR(20) UNIQUE,
     `role_id` BIGINT NOT NULL,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`role_id`) REFERENCES `user_role`(`id`)
@@ -35,7 +35,7 @@ CREATE TABLE `bank_account` (
 
 CREATE TABLE `credit_card` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `number` INTEGER UNSIGNED NOT NULL UNIQUE,
+    `number` BIGINT UNSIGNED NOT NULL UNIQUE,
     `name` VARCHAR(45),
     `type` VARCHAR(3) NOT NULL,
     `status` VARCHAR(3) NOT NULL,

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -22,6 +23,8 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private UserRole role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<BankAccount> bankAccounts;
 
     @Override
     public boolean equals(Object o) {
