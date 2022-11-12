@@ -18,7 +18,7 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Long number;
+    private String number;
     @Column
     private String name;
     @Column

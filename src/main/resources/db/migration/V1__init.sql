@@ -35,7 +35,7 @@ CREATE TABLE `bank_account` (
 
 CREATE TABLE `credit_card` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `number` BIGINT UNSIGNED NOT NULL UNIQUE,
+    `number` VARCHAR(16) NOT NULL UNIQUE,
     `name` VARCHAR(45),
     `type` VARCHAR(3) NOT NULL,
     `status` VARCHAR(3) NOT NULL,

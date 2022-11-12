@@ -1,8 +1,10 @@
 package com.webproject.service.impl;
 
+import com.webproject.controller.dto.LoginDto;
+import com.webproject.controller.dto.UserDto;
 import com.webproject.exception.UserNotFoundException;
 import com.webproject.exception.WrongPasswordException;
-import com.webproject.model.entity.User;
+import com.webproject.mapper.UserMapper;
 import com.webproject.model.repository.LoginRepository;
 import com.webproject.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -12,17 +14,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
     private final LoginRepository repository;
+    private final UserMapper mapper;
 
     @Override
-    public User findByLogin(String login, String password) {
-        var user = repository.findByLogin(login);
+    public UserDto findByLogin(LoginDto dto) {
+        var login = repository.findByLogin(dto.getLogin());
 
-        if (user == null) {
+        if (login.isEmpty()) {
             throw new UserNotFoundException();
-        } else if (!user.getPassword().equals(password)) {
+        } else if (!login.get().getPassword().equals(dto.getPassword())) {
             throw new WrongPasswordException();
         }
 
-        return user.getUser();
+        return mapper.userToUserDto(login.get().getUser());
     }
 }

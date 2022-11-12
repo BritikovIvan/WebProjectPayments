@@ -15,5 +15,6 @@ INSERT INTO `bank_account`(`iban`, `status`, `balance`, `user_id`) VALUES
     ('NL11ABNA1430833394', 'A', 23.56, 1);
 
 INSERT INTO `credit_card`(`number`, `name`, `type`, `status`, `validity`, `bank_account_id`) VALUES
-    (4024007173571042, 'Test', 'D', 'A', '2023-04-01', 1),
-    (5139620505836286, 'Test2', 'C', 'A', '2023-10-01', 2);
+    ('4024007173571042', 'Test', 'D', 'A', '2023-04-01', 1),
+    ('5139620505836286', 'Test2', 'C', 'A', '2023-10-01', 2),
+    ('4005693571794725', 'TestExpired', 'D', 'E', '2022-01-01', 1);

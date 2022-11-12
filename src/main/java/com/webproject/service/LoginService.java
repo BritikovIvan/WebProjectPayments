@@ -1,7 +1,8 @@
 package com.webproject.service;
 
-import com.webproject.model.entity.User;
+import com.webproject.controller.dto.LoginDto;
+import com.webproject.controller.dto.UserDto;
 
 public interface LoginService {
-    User findByLogin(String login, String password);
+    UserDto findByLogin(LoginDto dto);
 }
