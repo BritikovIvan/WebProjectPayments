@@ -26,8 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAll() {
+    public List<UserDto> findAdminUsers(UserDto admin) {
         var users = repository.findAll();
+        users.removeIf(user -> user.getId().equals(admin.getId()));
         return users.stream().map(mapper::userToUserDto).collect(Collectors.toList());
     }
 }

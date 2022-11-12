@@ -1,5 +1,7 @@
 package com.webproject.controller;
 
+import com.webproject.controller.dto.UserDto;
+import com.webproject.model.entity.UserRole;
 import com.webproject.service.BankAccountService;
 import com.webproject.service.CreditCardService;
 import com.webproject.service.PaymentService;
@@ -10,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
@@ -19,8 +23,9 @@ public class AdminController {
     private final PaymentService paymentService;
 
     @GetMapping("/admin_main")
-    public String getUsers(Model model) {
-        var users = userService.findAll();
+    public String getUsers(Model model, HttpSession session) {
+        var user = (UserDto) session.getAttribute("user");
+        var users = userService.findAdminUsers(user);
         model.addAttribute("users", users);
         return "admin_main";
     }

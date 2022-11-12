@@ -29,6 +29,16 @@
                 <a class="nav-link" data-bs-toggle="tab" href="#payments">Платежи</a>
             </li>
         </ul>
+
+        <div class="tab-content">
+            <div id="general" class="container tab-pane active" th:object="${user}"><br>
+                <h3 class="h3-md">Общая информация о пользователе:</h3><br>
+                <p class="fs-4"><strong>ФИО: </strong><span th:text="*{fullName}"/></p>
+                <p class="fs-4"><strong>Электронная почта: </strong><span th:text="*{email}"/></p>
+                <p class="fs-4"><strong>Контактный номер: </strong><span th:text="*{phoneNumber}"/></p>
+                <p class="fs-4"><strong>Роль: </strong><span th:text="*{role.role}"/></p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
