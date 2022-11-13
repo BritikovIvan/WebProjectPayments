@@ -1,7 +1,6 @@
 package com.webproject.controller;
 
 import com.webproject.controller.dto.UserDto;
-import com.webproject.model.entity.UserRole;
 import com.webproject.service.BankAccountService;
 import com.webproject.service.CreditCardService;
 import com.webproject.service.PaymentService;

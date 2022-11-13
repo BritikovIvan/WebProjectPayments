@@ -23,10 +23,10 @@ public class Payment {
     private BigDecimal amount;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender")
-    private User sender;
+    private BankAccount sender;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient")
-    private User recipient;
+    private BankAccount recipient;
 
     @Override
     public boolean equals(Object o) {

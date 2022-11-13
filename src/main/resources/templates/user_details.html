@@ -38,6 +38,39 @@
                 <p class="fs-4"><strong>Контактный номер: </strong><span th:text="*{phoneNumber}"/></p>
                 <p class="fs-4"><strong>Роль: </strong><span th:text="*{role.role}"/></p>
             </div>
+            <div id="cards" class="container tab-pane fade"><br>
+                <h3 class="h3-md">Список карт пользователя:</h3><br>
+                <div class="list-group" th:each="card: ${cards}">
+                    <a th:href="@{/credit_card/{id}(id=${card.id})}" class="list-group-item list-group-item-action mb-3" th:object="${card}">
+                        <div>
+                            <p class="fs-4"><span th:text="*{name}"/><span class="float-end" th:text="*{bankAccount.balance} + ' BYN'"/></p>
+                            <p class="fs-6" th:text="*{number}" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="bankAccounts" class="container tab-pane fade"><br>
+                <h3 class="h3-md">Список банковских счетов пользователя:</h3><br>
+                <ul class="list-group" th:each="bankAccount: ${bankAccounts}">
+                    <li class="list-group-item list-group-item-action mb-3" th:object="${bankAccount}">
+                        <div>
+                            <p class="fs-4"><span th:text="*{iban}"/><span class="float-end" th:text="*{balance} + ' BYN'"/></p>
+                            <p class="fs-6" th:text="*{status}" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="payments" class="container tab-pane fade"><br>
+                <h3 class="h3-md">Список банковских операций пользователя:</h3><br>
+                <ul class="list-group" th:each="payment: ${payments}">
+                    <li class="list-group-item list-group-item-action mb-3" th:object="${payment}">
+                        <div>
+                            <p class="fs-4"><span th:text="*{name}"/><span class="float-end" th:text="*{amount} + ' BYN'"/></p>
+                            <p class="fs-6"><span th:text="*{name}" /><span class="float-end" th:text="*{date}" /></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>

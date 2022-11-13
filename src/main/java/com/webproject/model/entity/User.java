@@ -23,7 +23,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private UserRole role;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<BankAccount> bankAccounts;
 
     @Override
