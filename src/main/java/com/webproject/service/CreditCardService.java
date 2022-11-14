@@ -13,4 +13,6 @@ public interface CreditCardService {
     List<CreditCardDto> getUserCards(UserDto userDto);
 
     CreditCardDto blockCard(Long id);
+
+    CreditCardDto unlockCard(Long id);
 }

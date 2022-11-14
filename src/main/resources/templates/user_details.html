@@ -64,8 +64,12 @@
                 <h3 class="h3-md">Список банковских операций пользователя:</h3><br>
                 <ul class="list-group" th:each="payment: ${payments}">
                     <li class="list-group-item list-group-item-action mb-3" th:object="${payment}">
-                        <div>
-                            <p class="fs-4"><span th:text="*{name}"/><span class="float-end" th:text="*{amount} + ' BYN'"/></p>
+                        <div th:if="*{sender} == ${user}">
+                            <p class="fs-4"><span th:text="*{senderCard}"/><span class="text-danger float-end" th:text="'-' + *{amount} + ' BYN'"/></p>
+                            <p class="fs-6"><span th:text="*{name}" /><span class="float-end" th:text="*{date}" /></p>
+                        </div>
+                        <div th:unless="*{sender} == ${user}">
+                            <p class="fs-4"><span th:text="*{recipientCard}"/><span class="text-success float-end" th:text="'+' + *{amount} + ' BYN'"/></p>
                             <p class="fs-6"><span th:text="*{name}" /><span class="float-end" th:text="*{date}" /></p>
                         </div>
                     </li>

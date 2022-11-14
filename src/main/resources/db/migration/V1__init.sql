@@ -48,11 +48,15 @@ CREATE TABLE `credit_card` (
 CREATE TABLE `payment` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `sender` BIGINT,
+    `sender_card` BIGINT,
     `recipient` BIGINT NOT NULL,
+    `recipient_card` BIGINT,
     `date` TIMESTAMP NOT NULL,
     `name` VARCHAR(45),
     `amount` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`sender`) REFERENCES `bank_account`(`id`),
-    FOREIGN KEY(`recipient`) REFERENCES `bank_account`(`id`)
+    FOREIGN KEY(`sender_card`) REFERENCES `credit_card`(`id`),
+    FOREIGN KEY(`recipient`) REFERENCES `bank_account`(`id`),
+    FOREIGN KEY(`recipient_card`) REFERENCES `credit_card`(`id`)
 );

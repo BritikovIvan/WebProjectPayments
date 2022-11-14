@@ -25,22 +25,22 @@
         <div class="container-md pt-5">
             <h3 class="h3-md">Переводы</h3><br>
             <h4 class="h4-md">ПО НОМЕРУ КАРТЫ</h4><br>
-            <form th:action="@{/payment}" method="post">
+            <form th:action="@{/payment}" method="post" th:object="${payment}">
                 <p class="fs-4 text-center">Выберите карту-отправитель</p>
                 <div class="mb-3 mt-3">
-                    <select class="form-select" id="userCard">
-                        <option th:each="card : ${userCards}" th:value="${card}" th:text="${card.name} + ' (' + ${card.number} + ')'"></option>
+                    <select class="form-select" id="userCard" th:field="*{senderCardId}">
+                        <option th:each="card : ${userCards}" th:value="${card.id}" th:text="${card.name} + ' (' + ${card.number} + ')'"></option>
                     </select>
                 </div>
                 <p class="fs-4 text-center">Введите карту-получатель</p>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="number" class="form-control" id="cardNumber" placeholder="Введите карту-получатель">
+                    <input type="number" class="form-control" th:field="*{recipientCardNumber}" id="cardNumber" placeholder="Введите карту-получатель">
                     <label for="cardNumber">Номер карты-получателя</label>
                 </div>
                 <p class="fs-4 text-center">Сумма перевода</p>
                 <div class="input-group mb-3">
                     <div class="form-floating">
-                        <input type="number" class="form-control" id="amount" placeholder="Введите сумму перевода">
+                        <input type="number" class="form-control" th:field="*{amount}" id="amount" placeholder="Введите сумму перевода">
                         <label for="amount">Сумма перевода</label>
                     </div>
                     <span class="input-group-text">BYN</span>

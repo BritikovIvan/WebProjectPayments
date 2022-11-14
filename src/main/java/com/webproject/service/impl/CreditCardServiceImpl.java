@@ -49,11 +49,20 @@ public class CreditCardServiceImpl implements CreditCardService {
 
     @Override
     public CreditCardDto blockCard(Long id) {
-        var card = creditCardRepository.findById(id);
+        return changeCardStatus(id, CreditCardStatus.BLOCKED);
+    }
+
+    @Override
+    public CreditCardDto unlockCard(Long id) {
+        return changeCardStatus(id, CreditCardStatus.ACTIVE);
+    }
+
+    private CreditCardDto changeCardStatus(Long cardId, CreditCardStatus status) {
+        var card = creditCardRepository.findById(cardId);
         if (card.isEmpty()) {
             throw new RuntimeException();
         }
-        card.get().setStatus(CreditCardStatus.BLOCKED);
+        card.get().setStatus(status);
         var changedCard = creditCardRepository.save(card.get());
         return creditCardMapper.cardToCardDto(changedCard);
     }

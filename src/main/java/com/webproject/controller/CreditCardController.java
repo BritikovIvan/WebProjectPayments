@@ -25,15 +25,28 @@ public class CreditCardController {
     }
 
     @GetMapping("/credit_card/{id}")
-    public String getCard(@PathVariable Long id, Model model) {
+    public String getCard(@PathVariable Long id, Model model, HttpSession session) {
         var creditCard = creditCardService.findCardById(id);
+        var user = (UserDto) session.getAttribute("user");
+        model.addAttribute("creditCard", creditCard);
+        model.addAttribute("user", user);
+        return "credit_card";
+    }
+
+    @PostMapping(value = "/credit_card/{id}", params = "block")
+    public String blockCard(@PathVariable Long id, Model model, HttpSession session) {
+        var creditCard = creditCardService.blockCard(id);
+        var user = (UserDto) session.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("creditCard", creditCard);
         return "credit_card";
     }
 
-    @PostMapping("/credit_card/{id}")
-    public String blockCard(@PathVariable Long id, Model model) {
-        var creditCard = creditCardService.blockCard(id);
+    @PostMapping(value = "/credit_card/{id}", params = "unlock")
+    public String unlockCard(@PathVariable Long id, Model model, HttpSession session) {
+        var creditCard = creditCardService.unlockCard(id);
+        var user = (UserDto) session.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("creditCard", creditCard);
         return "credit_card";
     }

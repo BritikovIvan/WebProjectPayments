@@ -12,6 +12,10 @@ public class PaymentDto {
     private LocalDateTime date;
     private String name;
     private BigDecimal amount;
-    private BankAccountDto sender;
-    private BankAccountDto recipient;
+    private UserDto sender;
+    private BankAccountDto senderAccount;
+    private CreditCardDto senderCard;
+    private UserDto recipient;
+    private BankAccountDto recipientAccount;
+    private CreditCardDto recipientCard;
 }

@@ -25,8 +25,14 @@ public class Payment {
     @JoinColumn(name = "sender")
     private BankAccount sender;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_card")
+    private CreditCard senderCard;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient")
     private BankAccount recipient;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipient_card")
+    private CreditCard recipientCard;
 
     @Override
     public boolean equals(Object o) {
