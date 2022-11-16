@@ -5,7 +5,6 @@ import com.webproject.controller.dto.PaymentDto;
 import com.webproject.controller.dto.UserDto;
 import com.webproject.mapper.CreatePaymentMapper;
 import com.webproject.mapper.PaymentMapper;
-import com.webproject.model.entity.BankAccount;
 import com.webproject.model.repository.CreditCardRepository;
 import com.webproject.model.repository.PaymentsRepository;
 import com.webproject.service.PaymentService;
@@ -33,16 +32,21 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
+    @Transactional
     public CreatePaymentDto makePayment(CreatePaymentDto paymentDto) {
         var payment = createPaymentMapper.paymentDtoToPayment(paymentDto);
+        var senderCard = creditCardRepository.findById(paymentDto.getSenderCardId()).get();
+        var recipientCard = creditCardRepository.findByNumber(payment.getRecipientCard().getNumber()).get();
+        var senderBalance = senderCard.getBankAccount().getBalance();
+        var recipientBalance = recipientCard.getBankAccount().getBalance();
+        senderCard.getBankAccount().setBalance(senderBalance.subtract(payment.getAmount()));
+        recipientCard.getBankAccount().setBalance(recipientBalance.add(payment.getAmount()));
         payment.setDate(LocalDateTime.now());
-        payment.setName("test payment");
-        var recipientCard = creditCardRepository.findByNumber(payment.getRecipientCard().getNumber());
-        if (recipientCard.isEmpty()) {
-            throw new RuntimeException();
-        }
-        payment.setRecipientCard(recipientCard.get());
-        payment.setRecipient(recipientCard.get().getBankAccount());
+        payment.setName("retail mobile bank");
+        payment.setSender(senderCard.getBankAccount());
+        payment.setSenderCard(senderCard);
+        payment.setRecipientCard(recipientCard);
+        payment.setRecipient(recipientCard.getBankAccount());
         var savePayment = repository.save(payment);
         return createPaymentMapper.paymentToPaymentDto(savePayment);
     }
