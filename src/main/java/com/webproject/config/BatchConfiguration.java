@@ -15,6 +15,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.RepositoryItemWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -30,16 +31,18 @@ import java.util.Map;
 @EnableBatchProcessing
 @EnableScheduling
 public class BatchConfiguration {
+    @Autowired
     public JobBuilderFactory jobBuilderFactory;
+    @Autowired
     public StepBuilderFactory stepBuilderFactory;
-    @Lazy
+    @Autowired
     private CreditCardRepository cardRepository;
-
+    @Autowired
     private JobCompletionNotificationListener listener;
-
+    @Autowired
     private JobLauncher jobLauncher;
 
-    @Scheduled(cron = "@hourly")
+    @Scheduled(cron = "@monthly")
     public void launchJob() throws Exception {
         Date date = new Date();
         JobExecution jobExecution = jobLauncher.run(userCardUpdateExpiredStatusJob(), new JobParametersBuilder()
