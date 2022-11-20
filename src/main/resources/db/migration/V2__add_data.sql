@@ -7,8 +7,8 @@ INSERT INTO `user`(`full_name`, `email`, `phone_number`, `role_id`) VALUES
     ('Гусева Ульяна Матвеевна', '5b2d11gd55@ed1d3ggg.com', '+375294613715', 2);
 
 INSERT INTO `login`(`login`, `password`, `user_id`) VALUES
-    ('test_user', '123', 1),
-    ('test_admin', '123', 2);
+    ('test_user', 'qwerty123', 1),
+    ('test_admin', 'qwerty123', 2);
 
 INSERT INTO `bank_account`(`iban`, `status`, `balance`, `user_id`) VALUES
     ('NL05RABO6044978370', 'A', 120.5, 1),

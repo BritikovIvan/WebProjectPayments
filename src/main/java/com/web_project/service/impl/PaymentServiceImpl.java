@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final CreditCardRepository creditCardRepository;
     private final PaymentMapper mapper;
     private final CreatePaymentMapper createPaymentMapper;
+    private final Validator validator;
 
     @Override
     public List<PaymentDto> getUserPayments(UserDto user) {
@@ -34,6 +37,13 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public CreatePaymentDto makePayment(CreatePaymentDto paymentDto) {
+        var violations = validator.validate(paymentDto);
+        if (!violations.isEmpty()) {
+            var stringBuilder = new StringBuilder();
+            violations.forEach(violation -> stringBuilder.append(violation.getMessage()));
+            throw new ConstraintViolationException("Error occurred: " + stringBuilder, violations);
+        }
+
         var payment = createPaymentMapper.paymentDtoToPayment(paymentDto);
         var senderCard = creditCardRepository.findById(paymentDto.getSenderCardId()).get();
         var recipientCard = creditCardRepository.findByNumber(payment.getRecipientCard().getNumber()).get();
