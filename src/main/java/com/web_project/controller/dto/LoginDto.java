@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 public class LoginDto {
-    private static final String passwordRegexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=\\S+$)$";
+    private static final String passwordRegexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=\\S+$).{8,20}$";
 
     @NotEmpty(message = "Login must not be blank")
     private String login;

@@ -2,6 +2,7 @@ package com.web_project.service.impl;
 
 import com.web_project.controller.dto.CreditCardDto;
 import com.web_project.controller.dto.UserDto;
+import com.web_project.exception.CreditCardNotFoundException;
 import com.web_project.exception.UserNotFoundException;
 import com.web_project.mapper.CreditCardMapper;
 import com.web_project.model.entity.enums.CreditCardStatus;
@@ -25,7 +26,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     public CreditCardDto findCardById(Long id) {
         var card = creditCardRepository.findById(id);
         if (card.isEmpty()) {
-            throw new RuntimeException();
+            throw new CreditCardNotFoundException("Credit card not found");
         }
         return creditCardMapper.cardToCardDto(card.get());
     }
@@ -40,7 +41,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     public List<CreditCardDto> getUserCards(UserDto userDto) {
         var user = userRepository.findById(userDto.getId());
         if (user.isEmpty()) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found");
         }
         var creditCards = user.get().getBankAccounts().stream()
                 .flatMap(list -> list.getCreditCards().stream()).collect(Collectors.toList());
@@ -60,7 +61,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     private CreditCardDto changeCardStatus(Long cardId, CreditCardStatus status) {
         var card = creditCardRepository.findById(cardId);
         if (card.isEmpty()) {
-            throw new RuntimeException();
+            throw new CreditCardNotFoundException("Credit card not found");
         }
         card.get().setStatus(status);
         var changedCard = creditCardRepository.save(card.get());

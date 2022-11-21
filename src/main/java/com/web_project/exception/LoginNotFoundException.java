@@ -3,14 +3,14 @@ package com.web_project.exception;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
-public class UserNotFoundException extends RuntimeException {
+@Getter
+public class LoginNotFoundException extends RuntimeException {
     private String message;
 
-    public UserNotFoundException() { }
+    public LoginNotFoundException() { }
 
-    public UserNotFoundException(String message) {
+    public LoginNotFoundException(String message) {
         super(message);
         this.message = message;
     }

@@ -1,6 +1,7 @@
 package com.web_project.controller;
 
 import com.web_project.controller.dto.UserDto;
+import com.web_project.exception.UserNotFoundException;
 import com.web_project.service.BankAccountService;
 import com.web_project.service.CreditCardService;
 import com.web_project.service.PaymentService;
@@ -8,6 +9,7 @@ import com.web_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -40,5 +42,13 @@ public class AdminController {
         model.addAttribute("bankAccounts", bankAccounts);
         model.addAttribute("payments", payments);
         return "user_details";
+    }
+
+    @ExceptionHandler({UserNotFoundException.class})
+    public String handleUserNotFoundException(Model model, Exception exception, HttpSession session) {
+        var user = (UserDto) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("exception", exception.getMessage());
+        return "exception";
     }
 }

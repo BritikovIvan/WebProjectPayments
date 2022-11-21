@@ -1,10 +1,12 @@
 package com.web_project.controller;
 
 import com.web_project.controller.dto.UserDto;
+import com.web_project.exception.CreditCardNotFoundException;
 import com.web_project.service.CreditCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +51,13 @@ public class CreditCardController {
         model.addAttribute("user", user);
         model.addAttribute("creditCard", creditCard);
         return "credit_card";
+    }
+
+    @ExceptionHandler({CreditCardNotFoundException.class})
+    public String handleCardNotFoundException(Model model, Exception exception, HttpSession session) {
+        var user = (UserDto) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("exception", exception.getMessage());
+        return "exception";
     }
 }

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Long id) {
         var user = repository.findById(id);
         if (user.isEmpty()) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found");
         }
         return mapper.userToUserDto(user.get());
     }

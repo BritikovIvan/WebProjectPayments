@@ -3,8 +3,11 @@ package com.web_project.service.impl;
 import com.web_project.controller.dto.CreatePaymentDto;
 import com.web_project.controller.dto.PaymentDto;
 import com.web_project.controller.dto.UserDto;
+import com.web_project.exception.CreditCardNotFoundException;
+import com.web_project.exception.InsufficientFundsException;
 import com.web_project.mapper.CreatePaymentMapper;
 import com.web_project.mapper.PaymentMapper;
+import com.web_project.model.entity.enums.CreditCardType;
 import com.web_project.model.repository.CreditCardRepository;
 import com.web_project.model.repository.PaymentsRepository;
 import com.web_project.service.PaymentService;
@@ -45,10 +48,18 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         var payment = createPaymentMapper.paymentDtoToPayment(paymentDto);
-        var senderCard = creditCardRepository.findById(paymentDto.getSenderCardId()).get();
-        var recipientCard = creditCardRepository.findByNumber(payment.getRecipientCard().getNumber()).get();
+        var sender = creditCardRepository.findById(paymentDto.getSenderCardId());
+        var recipient = creditCardRepository.findByNumber(payment.getRecipientCard().getNumber());
+        if (sender.isEmpty() || recipient.isEmpty()) {
+            throw new CreditCardNotFoundException("Credit card not found");
+        }
+        var senderCard = sender.get();
+        var recipientCard = recipient.get();
         var senderBalance = senderCard.getBankAccount().getBalance();
         var recipientBalance = recipientCard.getBankAccount().getBalance();
+        if (senderCard.getType().equals(CreditCardType.DEBIT) && senderBalance.compareTo(payment.getAmount()) < 0) {
+            throw new InsufficientFundsException("Insufficient funds");
+        }
         senderCard.getBankAccount().setBalance(senderBalance.subtract(payment.getAmount()));
         recipientCard.getBankAccount().setBalance(recipientBalance.add(payment.getAmount()));
         payment.setDate(LocalDateTime.now());

@@ -3,14 +3,14 @@ package com.web_project.exception;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
-public class UserNotFoundException extends RuntimeException {
+@Getter
+public class CreditCardNotFoundException extends RuntimeException {
     private String message;
 
-    public UserNotFoundException() { }
+    public CreditCardNotFoundException() { }
 
-    public UserNotFoundException(String message) {
+    public CreditCardNotFoundException(String message) {
         super(message);
         this.message = message;
     }

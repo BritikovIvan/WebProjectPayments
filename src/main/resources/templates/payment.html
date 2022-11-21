@@ -37,6 +37,10 @@
                     <input type="number" class="form-control" th:field="*{recipientCardNumber}" id="cardNumber" placeholder="Введите карту-получатель">
                     <label for="cardNumber">Номер карты-получателя</label>
                 </div>
+                <div th:if="${creditCardException != NULL}" class="alert alert-danger alert-dismissible">
+                    <div th:text="${creditCardException}"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <p class="fs-4 text-center">Сумма перевода</p>
                 <div class="input-group mb-3">
                     <div class="form-floating">
@@ -44,6 +48,10 @@
                         <label for="amount">Сумма перевода</label>
                     </div>
                     <span class="input-group-text">BYN</span>
+                </div>
+                <div th:if="${amountException != NULL}" class="alert alert-danger alert-dismissible">
+                    <div th:text="${amountException}"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <button type="submit" class="btn btn-warning">Перевести</button>
             </form>
