@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-//                        .successHandler(successHandler)
+                        .successHandler(successHandler)
                         .permitAll());
         return http.build();
     }
