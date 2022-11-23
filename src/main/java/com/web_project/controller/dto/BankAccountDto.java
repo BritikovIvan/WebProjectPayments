@@ -1,6 +1,7 @@
 package com.web_project.controller.dto;
 
 import com.web_project.model.entity.enums.BankAccountStatus;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class BankAccountDto {
     private Long id;
     @NotEmpty
