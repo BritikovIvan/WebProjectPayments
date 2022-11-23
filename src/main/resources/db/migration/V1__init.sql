@@ -17,7 +17,11 @@ CREATE TABLE `user` (
 CREATE TABLE `login` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(45) NOT NULL UNIQUE,
-    `password` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `account_non_expired` BOOLEAN NOT NULL,
+    `account_non_locked` BOOLEAN NOT NULL,
+    `credentials_non_expired` BOOLEAN NOT NULL,
+    `enabled` BOOLEAN NOT NULL,
     `user_id` BIGINT NOT NULL UNIQUE,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`user_id`) REFERENCES `user`(`id`)

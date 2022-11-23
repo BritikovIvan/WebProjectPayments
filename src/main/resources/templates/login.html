@@ -47,15 +47,15 @@
 </head>
 <body class="text-center">
     <main class="form-signin w-100 m-auto">
-        <form action="#" th:action="@{/login}" th:object="${loginClass}" method="post">
+        <form th:action="@{/login}" method="post">
             <h1 class="h3 mb-3 fw-normal">Вход в систему</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" th:field="*{login}" id="login" placeholder="Логин">
+                <input type="text" class="form-control" name="username" id="login" placeholder="Логин">
                 <label for="login">Логин</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Пароль">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Пароль">
                 <label for="password">Пароль</label>
             </div>
             <button class="w-100 btn btn-lg btn-warning" type="submit">Войти</button>

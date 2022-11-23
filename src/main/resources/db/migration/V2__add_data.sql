@@ -1,14 +1,14 @@
 INSERT INTO `user_role`(`role`) VALUES
-    ('CLIENT'),
-    ('ADMIN');
+    ('ROLE_CLIENT'),
+    ('ROLE_ADMIN');
 
 INSERT INTO `user`(`full_name`, `email`, `phone_number`, `role_id`) VALUES
     ('Гордеев Арсений Дмитрьевич', '22fadb5d14@4e1ca1e3.com', '+375445985852', 1),
     ('Гусева Ульяна Матвеевна', '5b2d11gd55@ed1d3ggg.com', '+375294613715', 2);
 
-INSERT INTO `login`(`login`, `password`, `user_id`) VALUES
-    ('test_user', 'qwerty123', 1),
-    ('test_admin', 'qwerty123', 2);
+INSERT INTO `login`(`login`, `password`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`, `user_id`) VALUES
+    ('test_user', '$2a$12$ibWL0GtULZNN2JjcY2bT8.ubSydIkV9ZvhKx46mMUOo7aUHzr.mRi', 1, 1, 1, 1, 1),
+    ('test_admin', '$2a$12$ibWL0GtULZNN2JjcY2bT8.ubSydIkV9ZvhKx46mMUOo7aUHzr.mRi', 1, 1, 1, 1, 2);
 
 INSERT INTO `bank_account`(`iban`, `status`, `balance`, `user_id`) VALUES
     ('NL05RABO6044978370', 'A', 120.5, 1),

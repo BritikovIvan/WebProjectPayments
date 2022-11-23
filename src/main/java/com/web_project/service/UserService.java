@@ -7,5 +7,5 @@ import java.util.List;
 public interface UserService {
     UserDto findById(Long id);
 
-    List<UserDto> findAdminUsers(UserDto admin);
+    List<UserDto> findAdminUsers(Long adminId);
 }

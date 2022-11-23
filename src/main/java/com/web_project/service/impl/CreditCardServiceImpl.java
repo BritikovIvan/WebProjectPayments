@@ -1,7 +1,6 @@
 package com.web_project.service.impl;
 
 import com.web_project.controller.dto.CreditCardDto;
-import com.web_project.controller.dto.UserDto;
 import com.web_project.exception.CreditCardNotFoundException;
 import com.web_project.exception.UserNotFoundException;
 import com.web_project.mapper.CreditCardMapper;
@@ -32,14 +31,14 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public List<CreditCardDto> getValidUserCards(UserDto userDto) {
-        var creditCards = creditCardRepository.findValidUserCards(userDto.getId());
+    public List<CreditCardDto> getValidUserCards(Long userId) {
+        var creditCards = creditCardRepository.findValidUserCards(userId);
         return creditCards.stream().map(creditCardMapper::cardToCardDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<CreditCardDto> getUserCards(UserDto userDto) {
-        var user = userRepository.findById(userDto.getId());
+    public List<CreditCardDto> getUserCards(Long userId) {
+        var user = userRepository.findById(userId);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }

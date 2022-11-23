@@ -8,9 +8,9 @@ import java.util.List;
 public interface CreditCardService {
     CreditCardDto findCardById(Long id);
 
-    List<CreditCardDto> getValidUserCards(UserDto userDto);
+    List<CreditCardDto> getValidUserCards(Long userId);
 
-    List<CreditCardDto> getUserCards(UserDto userDto);
+    List<CreditCardDto> getUserCards(Long userId);
 
     CreditCardDto blockCard(Long id);
 

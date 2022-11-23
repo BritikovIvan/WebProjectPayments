@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,10 +12,10 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div th:if="${user.role.role == 'CLIENT'}">
+    <div sec:authorize="hasRole('ROLE_CLIENT')">
         <div th:insert="parts/customer_navbar.html"></div>
     </div>
-    <div th:if="${user.role.role == 'ADMIN'}">
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <div th:insert="parts/admin_navbar.html"></div>
     </div>
     <div class="container-md pt-5" th:object="${creditCard}">
@@ -24,13 +24,13 @@
         <p class="fs-4"><strong>Действительна до: </strong><span th:text="*{validity}"/></p>
         <p class="fs-4"><strong>Номер банковского счета: </strong><span th:text="*{bankAccount.iban}"/></p>
         <p class="fs-4"><strong>Баланс: </strong><span th:text="*{bankAccount.balance} + ' BYN'"/></p>
-        <div th:if="${user.role.role == 'CLIENT'}">
+        <div sec:authorize="hasRole('ROLE_CLIENT')">
             <form th:action="@{/credit_card/{id}(id=${creditCard.id})}" method="post">
                 <button th:if="*{status.name() == 'ACTIVE'}" th:name="block" type="submit" class="btn btn-outline-dark">Заблокировать карту</button>
             </form>
             <p th:if="*{status.name() == 'BLOCKED'}" class="fs-4">Ваша карта заблокирована. Для разблокирования обратитесь в службу поддержки.</p>
         </div>
-        <div th:if="${user.role.role == 'ADMIN'}">
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
             <form th:action="@{/credit_card/{id}(id=${creditCard.id})}" method="post">
                 <button th:if="*{status.name() == 'ACTIVE'}" th:name="block" type="submit" class="btn btn-outline-dark">Заблокировать карту</button>
                 <button th:if="*{status.name() == 'BLOCKED'}" th:name="unlock" type="submit" class="btn btn-outline-dark">Разблокировать карту</button>

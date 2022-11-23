@@ -17,6 +17,14 @@ public class Login {
     private String login;
     @Column
     private String password;
+    @Column
+    private boolean accountNonExpired;
+    @Column
+    private boolean accountNonLocked;
+    @Column
+    private boolean credentialsNonExpired;
+    @Column
+    private boolean enabled;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
