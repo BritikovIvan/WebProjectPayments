@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" th:href="@{/main}">Главная</a>
         </li>
@@ -13,6 +13,9 @@
           <a class="nav-link" th:href="@{/payment}">Переводы</a>
         </li>
       </ul>
+      <form class="d-flex" th:action="@{/logout}" method="post">
+        <button class="btn btn-outline-warning" type="submit">Выход</button>
+      </form>
     </div>
   </div>
 </nav>
