@@ -37,6 +37,12 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
+    public List<CreditCardDto> getActiveUserCards(Long userId) {
+        var creditCards = creditCardRepository.findActiveUserCards(userId);
+        return creditCards.stream().map(creditCardMapper::cardToCardDto).collect(Collectors.toList());
+    }
+
+    @Override
     public List<CreditCardDto> getUserCards(Long userId) {
         var user = userRepository.findById(userId);
         if (user.isEmpty()) {

@@ -12,8 +12,12 @@ import java.util.Optional;
 @Repository
 public interface CreditCardRepository extends JpaRepository<CreditCard, Long> {
     @Query("SELECT c FROM CreditCard c JOIN BankAccount b ON (c.bankAccount = b.id) JOIN User u ON (b.user = u.id) " +
-            "WHERE u.id = :userId AND c.status = 'A'")
+            "WHERE u.id = :userId AND c.status != 'E'")
     List<CreditCard> findValidUserCards(@Param("userId") Long userId);
+
+    @Query("SELECT c FROM CreditCard c JOIN BankAccount b ON (c.bankAccount = b.id) JOIN User u ON (b.user = u.id) " +
+            "WHERE u.id = :userId AND c.status = 'A'")
+    List<CreditCard> findActiveUserCards(@Param("userId") Long userId);
 
     Optional<CreditCard> findByNumber(String number);
 }

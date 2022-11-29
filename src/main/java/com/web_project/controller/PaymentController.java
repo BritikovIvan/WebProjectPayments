@@ -26,7 +26,7 @@ public class PaymentController {
 
     @GetMapping("/payment")
     public String getPaymentForm(Model model, Principal principal) {
-        var userCards = creditCardService.getValidUserCards(Long.parseLong(principal.getName()));
+        var userCards = creditCardService.getActiveUserCards(Long.parseLong(principal.getName()));
         model.addAttribute("userCards", userCards);
         model.addAttribute("payment", new CreatePaymentDto());
         return "payment";

@@ -10,6 +10,8 @@ public interface CreditCardService {
 
     List<CreditCardDto> getValidUserCards(Long userId);
 
+    List<CreditCardDto> getActiveUserCards(Long userId);
+
     List<CreditCardDto> getUserCards(Long userId);
 
     CreditCardDto blockCard(Long id);
