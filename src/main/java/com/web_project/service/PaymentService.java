@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PaymentService {
     List<PaymentDto> getUserPayments(UserDto user);
-    CreatePaymentDto makePayment(CreatePaymentDto paymentDto);
+    PaymentDto makePayment(CreatePaymentDto paymentDto);
 }

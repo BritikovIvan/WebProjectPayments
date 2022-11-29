@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @RequiredArgsConstructor
-@EnableWebSecurity
+//@EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     private final UserDetailsService userDetailsService;

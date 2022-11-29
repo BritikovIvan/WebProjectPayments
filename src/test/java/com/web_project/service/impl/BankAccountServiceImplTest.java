@@ -40,7 +40,6 @@ class BankAccountServiceImplTest {
 
         var actual = bankAccountService.getUserAccounts(userDto);
 
-        assertNotNull(actual);
         assertEquals(expected,actual);
     }
 }

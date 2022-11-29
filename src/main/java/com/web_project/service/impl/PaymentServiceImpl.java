@@ -9,7 +9,7 @@ import com.web_project.mapper.CreatePaymentMapper;
 import com.web_project.mapper.PaymentMapper;
 import com.web_project.model.entity.enums.CreditCardType;
 import com.web_project.model.repository.CreditCardRepository;
-import com.web_project.model.repository.PaymentsRepository;
+import com.web_project.model.repository.PaymentRepository;
 import com.web_project.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private final PaymentsRepository repository;
+    private final PaymentRepository repository;
     private final CreditCardRepository creditCardRepository;
     private final PaymentMapper mapper;
     private final CreatePaymentMapper createPaymentMapper;
@@ -39,7 +39,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public CreatePaymentDto makePayment(CreatePaymentDto paymentDto) {
+    public PaymentDto makePayment(CreatePaymentDto paymentDto) {
         var violations = validator.validate(paymentDto);
         if (!violations.isEmpty()) {
             var stringBuilder = new StringBuilder();
@@ -69,6 +69,6 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setRecipientCard(recipientCard);
         payment.setRecipient(recipientCard.getBankAccount());
         var savePayment = repository.save(payment);
-        return createPaymentMapper.paymentToPaymentDto(savePayment);
+        return mapper.paymentToPaymentDto(savePayment);
     }
 }
