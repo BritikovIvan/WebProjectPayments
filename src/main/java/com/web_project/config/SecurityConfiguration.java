@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     private final UserDetailsService userDetailsService;
-
     private final AuthenticationSuccessHandler successHandler;
 
     @Bean
@@ -32,6 +31,7 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .successHandler(successHandler)
+                        .failureUrl("/login/access-denied")
                         .permitAll());
         return http.build();
     }
